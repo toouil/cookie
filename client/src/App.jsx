@@ -1,5 +1,11 @@
+import { useEffect } from "react";
+
 function App() {
   const endPoint = import.meta.env.VITE_END_POINT
+
+  useEffect(() => {
+    console.log(endPoint);
+  }, [])
   return (
     <h1>
       <button
