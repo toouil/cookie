@@ -3,6 +3,7 @@ require("dotenv").config();
 const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+const path = require('path');  // for path manipulation
 
 const app = express();
 app.use(express.json());
@@ -10,14 +11,15 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.ORIGIN],
+    origin: [process.env.ORIGIN]
   })
 );
 
 
-app.get("/", (req, res) => {
-  res.send(process.env.ORIGIN);
-});
+
+
+// Serve static files from the 'build' folder
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get("/set-cookie", (req, res) => {
   res.cookie("name", "value").send("Done");
